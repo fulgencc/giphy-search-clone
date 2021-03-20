@@ -2,6 +2,9 @@
 
 Frontend coding challenge.
 
+# Notes
+I updated the React & React scripts dependencies as they were a little old.
+
 # Dependencies
 
 ## React-Bootstrap

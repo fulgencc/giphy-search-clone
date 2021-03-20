@@ -1,9 +1,9 @@
-import { useEffect, useState ,useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getGifs } from '../api/giphyAPI';
 import { mapGifsToRows } from '../util/util';
 import GifSearch from './GifSearch';
 import GifGrid from './GifGrid';
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 
 /**
  * Container for gifs. It handles all of the http requests, and sends them down to
@@ -51,6 +51,7 @@ export default function GifContainer() {
         setLoading(true);
         const res = await getGifs(40, 0);
         const gifRows = mapGifsToRows(res.data.data);
+        setGifResponse(res.data);
         setGifs(gifRows);
         setLoading(false);
       }
@@ -71,21 +72,23 @@ export default function GifContainer() {
 
   // Infinite scroll
   useEffect(() => {
-    if (isBottom) {
+    // Make sure that 
+    console.log(gifResponse);
+    if (isBottom && offset < gifResponse.pagination.total_count) {
       const getMoreGifData = async () => {
         // Await GIFs (if input is blank, search from trending, otherwise use query)
-        const res = await getGifs(8, offset, input ? 'search' : 'trending', input ? input : undefined);
+        const res = await getGifs(16, offset, input ? 'search' : 'trending', input ? input : undefined);
         const gifRows = mapGifsToRows(res.data.data);
         setGifs((gifs) => ([...gifs, ...gifRows]));
 
-        setOffset((offset) => (offset + 8));
+        setOffset((offset) => (offset + 16));
       }
       setIsBottom(false);
       getMoreGifData();
     }
-  }, [isBottom, offset, input]);
+  }, [gifResponse, isBottom, offset, input]);
 
-  // If the gifResponse gets modified (ex. user tries to search), we will
+  // If the gifResponse gets modified (ex. typically when the user tries to search for something new), we will
   // need to map the new values to the state.
   useEffect(() => {
     if (gifResponse) {
@@ -97,7 +100,7 @@ export default function GifContainer() {
   return (
     <div>
       <GifSearch setGifs={setGifs} containerInput={input} setContainerInput={setInput} gifResponse={gifResponse} setGifResponse={setGifResponse} setOffset={setOffset} />
-      <GifGrid gifs={gifs} input={input} loading={loading} />
+      <GifGrid gifs={gifs} input={input} loading={loading} offset={offset} totalCount={gifResponse ? gifResponse.pagination.total_count : 0} />
     </div>
   )
 

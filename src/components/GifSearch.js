@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Row, Col, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { getAutocomplete, getGifs } from '../api/giphyAPI';
+import { debounce } from 'lodash';
 import './GifSearch.css'
-
 
 /**
  * Input component to search for GIFs.
@@ -27,7 +27,7 @@ export default function GifSearch(props) {
   // Array index of which AutoComplete suggestion is selected (-1 for none)
   const [autoCompleteSelected, setAutoCompleteSelected] = useState(-1);
 
-  // True or false if AutoComplete should be visible
+  // True or false if we should make an AutoComplete request
   const [autoCompleteVisible, setAutoCompleteVisible] = useState(false);
 
   // The full AutoComplete rquest
@@ -52,7 +52,7 @@ export default function GifSearch(props) {
    */
   useEffect(() => {
 
-    if (input !== '') {
+    if (input !== '' && autoCompleteVisible) {
       const getAutocompleteData = async (source) => {
         try {
           const autocompleteData = await getAutocomplete(input, source.token);
@@ -77,7 +77,7 @@ export default function GifSearch(props) {
     else {
       resetAutocomplete();
     }
-  }, [input])
+  }, [input, autoCompleteVisible])
 
   /**
    * Asynchronous call to get search gif data, map to
@@ -145,12 +145,25 @@ export default function GifSearch(props) {
    * Function to handle when a user wants to search GIFs.
    */
   const handleSubmit = () => {
+    // We always want to cancel the auto complete request if a user tries to submit
+    // so we omit it from the debounce request.
     autoCompleteRequest.cancel('Canceled autocomplete request because user searched.');
+    debounceHandleSubmit();
+  }
+
+  /**
+   * The rest of handleSubmit that we want to debounce.
+   */
+  const handleSubmitRest = () => {
     getSearchGifData();
     resetAutocomplete();
     setAutoCompleteVisible(false);
     setContainerInput(input);
   }
+
+  // Callback for handleSubmit debounce. Dependency arry include input (so that the
+  // search query doesn't become stale)
+  const debounceHandleSubmit = useCallback(debounce(handleSubmitRest, 500), [input]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>

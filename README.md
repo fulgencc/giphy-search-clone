@@ -41,7 +41,7 @@ Using GIPHY's autocomplete endpoint. I think the style could be improved upon.
 Using Bootstrap rows/columns, GIFs are automatically added to a grid in columns of 4.
 
 ## Infinite Scrolling
-8 new entries at a time.
+16 new entries at a time.
 
 ## Animations
 Just a few using framer-motion.

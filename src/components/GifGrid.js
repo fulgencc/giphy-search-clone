@@ -1,5 +1,7 @@
 import { Row, Col, Spinner } from 'react-bootstrap';
 import GifRow from './GifRow';
+import { motion, useViewportScroll, useTransform } from 'framer-motion';
+import { ReactComponent as DownArrow } from '../down-arrow.svg';
 
 /**
  * A grid for strictly displaying GIFs. Uses GridRow.
@@ -8,12 +10,21 @@ import GifRow from './GifRow';
  * @param {object} props.gifs An array of rows of GIFs
  * @param {string} props.input User input
  * @param {boolean} props.loading A boolean denoting if the component is loading or not
+ * @param {number} props.offset Current offset of GIFs
+ * @param {number} props.totalCount Total count of GIFs from query
  */
 export default function GifGrid(props) {
     const input = props.input;
     const gifs = props.gifs;
     const loading = props.loading;
+    const offset = props.offset;
+    const totalCount = props.totalCount;
 
+    console.log(offset, totalCount)
+
+    // Animation for end of viewport
+    const { scrollYProgress } = useViewportScroll();
+    const scale = useTransform(scrollYProgress, [0.85, 1], [1, 2]);
 
     if (gifs.length) {
         return (
@@ -24,11 +35,17 @@ export default function GifGrid(props) {
                             <GifRow row={row} key={index} />
                         )
                     })}
-                <Row>
-                    <Col className='text-center p-5'>
-                        <h2>...</h2>
-                    </Col>
-                </Row>
+
+                {/* We check offset & total count in case there are no more records */}
+                {offset < totalCount &&
+                    <Row style={{ marginTop: '20em', paddingBottom: '10em' }}>
+                        <Col className='text-center'>
+                            <motion.div style={{ scale, postion: 'absolute', left: '40%' }}>
+                                <h5>Looking for more? Keep scrolling!</h5>
+                                <DownArrow fill='white' width='10%' /></motion.div>
+                        </Col>
+                    </Row>
+                }
             </div>
 
         )

@@ -96,7 +96,7 @@ export default function GifContainer() {
 
   return (
     <div>
-      <GifSearch setGifs={setGifs} containerInput={input} setContainerInput={setInput} setGifResponse={setGifResponse} gifResponse={gifResponse} />
+      <GifSearch setGifs={setGifs} containerInput={input} setContainerInput={setInput} gifResponse={gifResponse} setGifResponse={setGifResponse} setOffset={setOffset} />
       <GifGrid gifs={gifs} input={input} loading={loading} />
     </div>
   )

@@ -8,12 +8,14 @@ import './GifSearch.css'
 /**
  * Input component to search for GIFs.
  * @param {object} props
- * @param {function} props.containerInput State function to set the gif array.
+ * @param {function} props.containerInput State of the user input.
  * @param {function} props.setContainerInput State function to set the container input. 
  * This is to show what the user searched for in the container. I was thinking of
  * potentially putting this in the GifSearch component, but ultimately thought it would be best
  * to separate them.
  * @param {object} props.gifResponse The full http response from GIPHY.
+ * @param {function} props.setGifResponse State function to set the full http response from GIPHY.
+ * @param {function} props.setOffset State function to set the offset of GIFs for the request.
  */
 export default function GifSearch(props) {
   // User input (real-time)
@@ -37,6 +39,7 @@ export default function GifSearch(props) {
   // Full GIPHY response
   const [gifResponse, setGifResponse] = [props.gifResponse, props.setGifResponse];
 
+  const setOffset = props.setOffset
 
   const styles = {
     autoComplete: 'autoComplete',
@@ -89,6 +92,8 @@ export default function GifSearch(props) {
     const searchGifData = await getGifs(40, 0, 'search', input);
     setGifResponse(searchGifData.data);
     }
+    // Reset offset if searching for something new.
+    setOffset(40);
   }
 
   const handleKeydown = (e) => {

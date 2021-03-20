@@ -1,0 +1,16 @@
+.autoComplete {
+    list-style-type: none;
+    padding: 0;
+}
+
+.autoCompleteItem {
+    cursor: pointer;
+}
+
+[aria-selected='true'] {
+    background-color: gray;
+}
+
+.autoCompleteText {
+    padding-left: 0.75em;
+}

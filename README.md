@@ -5,6 +5,8 @@ Frontend coding challenge.
 # Notes
 I updated the React & React scripts dependencies as they were a little old.
 
+
+
 # Dependencies
 
 ## React-Bootstrap
@@ -26,6 +28,8 @@ For HTTP requests
 For debounce
 
 # Features
+
+
 
 ## Search
 You can search for a GIF using the search endpoint. I'd like to add even more here (adding an area to search by category would be cool). If empty, searches trending GIFs.

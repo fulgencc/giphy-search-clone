@@ -2,6 +2,8 @@
 
 Frontend coding challenge.
 
+This app can simply be started by running `npm install` and `npm start`.
+
 # Notes
 I updated the React & React scripts dependencies as they were a little old.
 

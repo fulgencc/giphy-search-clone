@@ -145,10 +145,15 @@ export default function GifSearch(props) {
    * Function to handle when a user wants to search GIFs.
    */
   const handleSubmit = () => {
-    // We always want to immediately cancel the auto complete request if a user tries to submit
-    // so we omit it from the debounce.
-    autoCompleteRequest.cancel('Canceled autocomplete request because user searched.');
-    debounceHandleSubmit();
+    // Don't send another request if the input is the same as the previous request.
+    if (input !== containerInput) {
+      // We always want to immediately cancel the auto complete request if a user tries to submit
+      // so we omit it from the debounce.
+      if (autoCompleteRequest) {
+        autoCompleteRequest.cancel('Canceled autocomplete request because user searched.');
+      }
+      debounceHandleSubmit();
+    }
   }
 
   /**
@@ -179,7 +184,7 @@ export default function GifSearch(props) {
             setInput(e.target.value)
           }} />
         <InputGroup.Append>
-          <Button variant="primary" onClick={() => { handleSubmit(); }}>Search!</Button>
+          <Button variant="light" onClick={() => { handleSubmit(); }}>Search!</Button>
         </InputGroup.Append>
         {autoComplete && autoComplete.length > 0 &&
           <Row className='text-light rounded mx-0 mt-5' style={{ position: 'absolute', zIndex: 10, width: 'inherit', backgroundColor: 'rgba(0, 0, 0, 0.5' }}>

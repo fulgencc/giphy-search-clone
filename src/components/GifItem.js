@@ -36,7 +36,7 @@ export default function GifItem(props) {
                 {!showInfo && <Card.Img src={gif.images.fixed_height.url} style={isLoaded ? {} : { display: 'none' }} onLoad={() => setIsLoaded(true)} alt={gif.title} />}
                 {!showInfo && !isLoaded && <Placeholder />}
                 {showInfo && <Card.Body style={{ height: `${gif.images.fixed_height.height}px`, width: '100%' }}>
-                    <h6>{gif.title}</h6>
+                    <h6><small>{gif.title}</small></h6>
                     <ul style={{ listStyleType: 'none', padding: 0 }}>
                         <li>
                             <small className='text-muted'>user - {gif.username ? gif.username : 'None'}</small>
@@ -45,7 +45,7 @@ export default function GifItem(props) {
                             {gif.source_tld && <small className='text-muted'>{gif.source_tld}</small>}
                         </li>
                         <li>
-                            {<small className='text-muted'>date created - {new Date(gif.import_datetime).toLocaleDateString('en-us')}</small>}
+                            {<small className='text-muted'>{new Date(gif.import_datetime).toLocaleDateString('en-us')}</small>}
                         </li>
                     </ul>
                 </Card.Body>}

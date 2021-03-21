@@ -48,26 +48,20 @@ Clicking on a GIF will display more info on it.
 # Thing I'd Like to Add
 I didn't want to spend too much time on this, so I did have to leave out some things I wish I could have worked on:
 
+## Jest Tests
+Probably the first thing I would add. I'd like to do some snapshot testing of my components.
+
 ## Optimize for slow internet connections
 I have simple debouncing and checking if GIFs are loaded, but there needs to be some more opimization so that API requests get cancelled if one is pending and the user tries to search again with slow internet.
 
-## Jest Tests
-Probably the first thing I would add. I'd like to do some snapshot testing of my components.
+## Async Error Handling
+Currently I just console.log the error message, but would like to expand on this.
 
 ## Mosaic Style Images
 I didn't want to use an already built component because I felt like that was kind of cheating, so I opted to skip it for now but it sounds like it would be really fun to make if I had more time.
 
-## More Animations
-I was thinking about doing cooler animations for the GIFs after they load, but I felt like it reduced the responsiveness of the app. Users want to see GIFs, and I didn't want to keep them waiting!
-
-## Better Info
-Add some more info on the info cards. I think the animations could definitely be better too.
-
 ## Tags
 Add some related tags when a user searches which can be clicked to search for GIFs with those tags.
-
-## Sort
-Sorting by date/username/etc.
 
 ## Media Queries/Breakpoints for Dyanmic Grid
 I think it'd be cool to implement, but I didn't want this to take up all my time. I checked what GIPHY is doing and they don't have this feature either, so I decided to leave it out.

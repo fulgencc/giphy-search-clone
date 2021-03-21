@@ -1,10 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
 import { getGifs } from '../api/giphyAPI';
-import { mapGifsToRows } from '../util/util';
+import { Row, Col } from 'react-bootstrap';
 import GifSearch from './GifSearch';
 import GifGrid from './GifGrid';
 import { debounce } from 'lodash';
-import useBreakpoint from '../util/useBreakpoint';
 
 /**
  * Container for GIFs. This is the top level component which contains the state of
@@ -15,7 +14,7 @@ export default function GifContainer() {
   // User input (after hitting submit)
   const [input, setInput] = useState('');
 
-  // Array of GIFs (in rows)
+  // Array of GIFs
   const [gifs, setGifs] = useState([]);
 
   // Full GIF response
@@ -30,8 +29,6 @@ export default function GifContainer() {
   // True if user is at the bottom of the screen
   const [isBottom, setIsBottom] = useState(false);
 
-  const breakpoint = useBreakpoint();
-
   const debounceIsBottom = useCallback(debounce(setIsBottom, 1000), []); // eslint-disable-line react-hooks/exhaustive-deps
   /**
    * Sets isBottom boolean to true or false if the user is at the bottom of the
@@ -43,7 +40,7 @@ export default function GifContainer() {
       debounceIsBottom(bottom);
     }
   };
-  
+
   /**
    * On Mount useEffect.
    */
@@ -53,9 +50,8 @@ export default function GifContainer() {
       try {
         setLoading(true);
         const res = await getGifs(48, 0);
-        const gifRows = mapGifsToRows(res.data.data, breakpoint);
         setGifResponse(res.data);
-        setGifs(gifRows);
+        setGifs(res.data.data);
         setLoading(false);
       }
       catch (e) {
@@ -80,13 +76,12 @@ export default function GifContainer() {
       const getMoreGifData = async () => {
         // Await GIFs (if input is blank, search from trending, otherwise use query)
         try {
-        const res = await getGifs(12, offset, input ? 'search' : 'trending', input ? input : undefined);
-        const gifRows = mapGifsToRows(res.data.data, breakpoint);
-        setGifs((gifs) => {
-          return ([...gifs, ...gifRows]);
-        });
+          const res = await getGifs(12, offset, input ? 'search' : 'trending', input ? input : undefined);
+          setGifs((gifs) => {
+            return ([...gifs, ...res.data.data]);
+          });
 
-        setOffset((offset) => (offset + 12));
+          setOffset((offset) => (offset + 12));
         }
         catch (e) {
           console.log(e.message);
@@ -95,21 +90,28 @@ export default function GifContainer() {
       setIsBottom(false);
       getMoreGifData();
     }
-  }, [gifResponse, isBottom, offset, input, breakpoint]);
+  }, [gifResponse, isBottom, offset, input]);
 
   // If the gifResponse gets modified (ex. typically when the user tries to search for something new), we will
   // need to map the new values to the state.
   useEffect(() => {
     if (gifResponse) {
-      const gifRows = mapGifsToRows([...gifResponse.data], breakpoint);
-      setGifs([...gifRows]);
+      setGifs(gifResponse.data);
     }
-  }, [gifResponse, breakpoint]);
+  }, [gifResponse]);
 
   return (
     <div>
-      <GifSearch setGifs={setGifs} containerInput={input} setContainerInput={setInput} gifResponse={gifResponse} setGifResponse={setGifResponse} setOffset={setOffset} />
-      <GifGrid gifs={gifs} input={input} loading={loading} offset={offset} totalCount={gifResponse ? gifResponse.pagination.total_count : 0} />
+      <GifSearch containerInput={input} setContainerInput={setInput} gifResponse={gifResponse} setGifResponse={setGifResponse} setOffset={setOffset} />
+      <GifGrid gifs={gifs} input={input} loading={loading} />
+      {/* We check offset & total count in case there are no more records */}
+      {offset < (gifResponse ? gifResponse.pagination.total_count : 0) &&
+        <Row style={{ marginTop: '10em', marginBottom: '10em' }}>
+          <Col className='text-center'>
+            <h1>...</h1>
+          </Col>
+        </Row>
+      }
     </div>
   )
 

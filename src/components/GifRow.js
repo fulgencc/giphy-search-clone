@@ -9,7 +9,7 @@ import GifItem from './GifItem';
 export default function GifRow(props) {
 
   const row = props.row;
-
+  
   return (
     <Row className='pb-3'>{
       row.map((gif, index) => {

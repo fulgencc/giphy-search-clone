@@ -1,5 +1,8 @@
-import { Row, Col, Spinner } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Spinner } from 'react-bootstrap';
+import { mapGifsToRows } from '../util/util';
 import GifRow from './GifRow';
+import useBreakpoint from '../util/useBreakpoint';
 
 /**
  * A grid for strictly displaying GIFs. Uses GridRow.
@@ -15,27 +18,25 @@ export default function GifGrid(props) {
     const input = props.input;
     const gifs = props.gifs;
     const loading = props.loading;
-    const offset = props.offset;
-    const totalCount = props.totalCount;
 
-    if (gifs.length) {
+    const [gifRows, setGifRows] = useState([]);
+
+    const breakpoint = useBreakpoint();
+
+    // map the GIFs to rows
+    useEffect(() => {
+        setGifRows(mapGifsToRows(gifs, breakpoint));
+    }, [gifs, breakpoint])
+
+    if (gifRows.length) {
         return (
             <div className='py-2'>
                 {
-                    gifs.map((row, index) => {
+                    gifRows.map((row, index) => {
                         return (
                             <GifRow row={row} key={index} />
                         )
                     })}
-
-                {/* We check offset & total count in case there are no more records */}
-                {offset < totalCount &&
-                    <Row style={{ marginTop: '10em', paddingBottom: '10em' }}>
-                        <Col className='text-center'>
-                            <h1>...</h1>
-                        </Col>
-                    </Row>
-                }
             </div>
 
         )

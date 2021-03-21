@@ -93,7 +93,7 @@ export default function GifSearch(props) {
       setGifResponse(searchGifData.data);
     }
     // Reset offset if searching for something new.
-    setOffset(40);
+    setOffset(48);
   }
 
   const handleKeydown = (e) => {

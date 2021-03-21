@@ -11,8 +11,6 @@ import useBreakpoint from '../util/useBreakpoint';
  * @param {object} props.gifs An array of rows of GIFs
  * @param {string} props.input User input
  * @param {boolean} props.loading A boolean denoting if the component is loading or not
- * @param {number} props.offset Current offset of GIFs
- * @param {number} props.totalCount Total count of GIFs from query
  */
 export default function GifGrid(props) {
     const input = props.input;

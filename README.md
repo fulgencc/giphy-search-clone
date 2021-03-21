@@ -5,8 +5,6 @@ Frontend coding challenge.
 # Notes
 I updated the React & React scripts dependencies as they were a little old.
 
-
-
 # Dependencies
 
 ## React-Bootstrap
@@ -29,8 +27,6 @@ For debounce
 
 # Features
 
-
-
 ## Search
 You can search for a GIF using the search endpoint. I'd like to add even more here (adding an area to search by category would be cool). If empty, searches trending GIFs.
 
@@ -51,6 +47,9 @@ Clicking on a GIF will display more info on it.
 
 # Thing I'd Like to Add
 I didn't want to spend too much time on this, so I did have to leave out some things I wish I could have worked on:
+
+## Optimize for slow internet connections
+I have simple debouncing and checking if GIFs are loaded, but there needs to be some more opimization so that API requests get cancelled if one is pending and the user tries to search again with slow internet.
 
 ## Jest Tests
 Probably the first thing I would add. I'd like to do some snapshot testing of my components.

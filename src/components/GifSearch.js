@@ -145,8 +145,8 @@ export default function GifSearch(props) {
    * Function to handle when a user wants to search GIFs.
    */
   const handleSubmit = () => {
-    // We always want to cancel the auto complete request if a user tries to submit
-    // so we omit it from the debounce request.
+    // We always want to immediately cancel the auto complete request if a user tries to submit
+    // so we omit it from the debounce.
     autoCompleteRequest.cancel('Canceled autocomplete request because user searched.');
     debounceHandleSubmit();
   }

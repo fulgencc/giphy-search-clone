@@ -17,7 +17,7 @@ export default function GifItem(props) {
     // Placeholder for GifItem when image is still loading.
     const Placeholder = () => {
         return (
-            <div style={{ height: `${gif.images.fixed_height.height}px`, width: '100%' }}>
+            <div style={{ height: `${gif.images.fixed_width.height}px`, width: '100%' }}>
                 <Spinner style={{ position: 'relative', top: '40%', left: '45%' }} animation='border' />
             </div>
         )
@@ -33,9 +33,9 @@ export default function GifItem(props) {
             onClick={() => { setShowInfo(!showInfo) }}
         >
             <Card key={gif.id}>
-                {!showInfo && <Card.Img src={gif.images.fixed_height.url} style={isLoaded ? {} : { display: 'none' }} onLoad={() => setIsLoaded(true)} alt={gif.title} />}
+                {!showInfo && <Card.Img src={gif.images.fixed_width.url} style={isLoaded ? {} : { display: 'none' }} onLoad={() => setIsLoaded(true)} alt={gif.title} />}
                 {!showInfo && !isLoaded && <Placeholder />}
-                {showInfo && <Card.Body style={{ height: `${gif.images.fixed_height.height}px`, width: '100%' }}>
+                {showInfo && <Card.Body>
                     <h6><small>{gif.title}</small></h6>
                     <ul style={{ listStyleType: 'none', padding: 0 }}>
                         <li>

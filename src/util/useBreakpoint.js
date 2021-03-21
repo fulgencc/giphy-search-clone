@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
 
+/**
+ * 
+ * @param {number} width Width of the screen
+ * @returns a string of the current breakpoint
+ */
 const getDeviceConfig = (width) => {
     if (width < 320) {
         return 'xs';
@@ -13,6 +18,11 @@ const getDeviceConfig = (width) => {
     }
 };
 
+/**
+ * Custom hook to return breakpoints of the window. Credits to:
+ * https://betterprogramming.pub/usebreakpoint-hook-get-media-query-breakpoints-in-react-3f1779b73568
+ * @returns the name of the breakpoint
+ */
 const useBreakpoint = () => {
     const [brkPnt, setBrkPnt] = useState(() => getDeviceConfig(window.innerWidth));
 

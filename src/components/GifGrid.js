@@ -20,8 +20,6 @@ export default function GifGrid(props) {
     const offset = props.offset;
     const totalCount = props.totalCount;
 
-    console.log(offset, totalCount)
-
     // Animation for end of viewport
     const { scrollYProgress } = useViewportScroll();
     const scale = useTransform(scrollYProgress, [0.85, 1], [1, 2]);

@@ -72,11 +72,11 @@ export default function GifContainer() {
 
   // Infinite scroll
   useEffect(() => {
-    // Make sure that 
-    console.log(gifResponse);
+    // Make sure that there's still GIFs to load before sending the request.
     if (isBottom && offset < gifResponse.pagination.total_count) {
       const getMoreGifData = async () => {
         // Await GIFs (if input is blank, search from trending, otherwise use query)
+        try {
         const res = await getGifs(16, offset, input ? 'search' : 'trending', input ? input : undefined);
         const gifRows = mapGifsToRows(res.data.data);
         setGifs((gifs) => {
@@ -84,6 +84,10 @@ export default function GifContainer() {
         });
 
         setOffset((offset) => (offset + 16));
+        }
+        catch (e) {
+          console.log(e.message);
+        }
       }
       setIsBottom(false);
       getMoreGifData();

@@ -185,8 +185,7 @@ export default function GifSearch(props) {
                 {autoComplete.map((val, index) => {
                   return <li className={styles.autoCompleteItem} key={index} aria-selected={autoCompleteSelected === index} role='option' onClick={() => {
                     setInput(val.name);
-                    setAutoCompleteSelected(-1);
-                    setAutocomplete(null);
+                    resetAutocomplete();
                   }}>
                     <div className={styles.autoCompleteText}>{val.name}</div>
                   </li>

@@ -36,7 +36,7 @@ You can search for a GIF using the search endpoint. I'd like to add even more he
 Using GIPHY's autocomplete endpoint. I think the style could be improved upon.
 
 ## Dynamic Grid
-Using Bootstrap rows/columns, GIFs are automatically added to a grid in columns of 4.
+Using Bootstrap rows/columns, GIFs are automatically added to a grid. Grid will resize based on browser width.
 
 ## Infinite Scrolling
 16 new entries at a time.
@@ -53,8 +53,8 @@ I didn't want to spend too much time on this, so I did have to leave out some th
 ## Jest Tests
 Probably the first thing I would add. I'd like to do some snapshot testing of my components.
 
-## Optimize for slow internet connections
-I have simple debouncing and checking if GIFs are loaded, but there needs to be some more opimization so that API requests get cancelled if one is pending and the user tries to search again with slow internet.
+## Optimize even more for slow internet connections
+I have simple debouncing and checking if GIFs are loaded, but there could be some more opimization.
 
 ## Async Error Handling
 Currently I just console.log the error message, but would like to expand on this.
@@ -64,6 +64,3 @@ I didn't want to use an already built component because I felt like that was kin
 
 ## Tags
 Add some related tags when a user searches which can be clicked to search for GIFs with those tags.
-
-## Media Queries/Breakpoints for Dyanmic Grid
-I think it'd be cool to implement, but I didn't want this to take up all my time. I checked what GIPHY is doing and they don't have this feature either, so I decided to leave it out.

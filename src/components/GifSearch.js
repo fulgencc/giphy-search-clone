@@ -27,9 +27,6 @@ export default function GifSearch(props) {
   // Array index of which AutoComplete suggestion is selected (-1 for none)
   const [autoCompleteSelected, setAutoCompleteSelected] = useState(-1);
 
-  // True or false if we should make an AutoComplete request
-  const [autoCompleteVisible, setAutoCompleteVisible] = useState(false);
-
   // The full AutoComplete rquest
   const [autoCompleteRequest, setAutoCompleteRequest] = useState();
 
@@ -52,7 +49,7 @@ export default function GifSearch(props) {
    */
   useEffect(() => {
 
-    if (input !== '' && autoCompleteVisible) {
+    if (input !== '') {
       const getAutocompleteData = async (source) => {
         try {
           const autocompleteData = await getAutocomplete(input, source.token);
@@ -77,7 +74,7 @@ export default function GifSearch(props) {
     else {
       resetAutocomplete();
     }
-  }, [input, autoCompleteVisible])
+  }, [input])
 
   /**
    * Asynchronous call to get search gif data, map to
@@ -110,8 +107,7 @@ export default function GifSearch(props) {
       else if (e.keyCode === 13) {
 
         // If the user presses enter to select an auto complete suggestion.
-        if (autoCompleteVisible && autoCompleteSelected > -1) {
-          setAutoCompleteVisible(false);
+        if (autoCompleteSelected > -1) {
           setInput(autoComplete[autoCompleteSelected].name);
           resetAutocomplete();
         }
@@ -162,7 +158,6 @@ export default function GifSearch(props) {
   const handleSubmitRest = () => {
     getSearchGifData();
     resetAutocomplete();
-    setAutoCompleteVisible(false);
     setContainerInput(input);
   }
 
@@ -178,9 +173,6 @@ export default function GifSearch(props) {
           value={input}
           onKeyDown={handleKeydown}
           onChange={(e) => {
-            if (!autoCompleteVisible) {
-              setAutoCompleteVisible(true);
-            }
             setInput(e.target.value)
           }} />
         <InputGroup.Append>
@@ -192,9 +184,6 @@ export default function GifSearch(props) {
               <ul className={styles.autoComplete} role='listbox'>
                 {autoComplete.map((val, index) => {
                   return <li className={styles.autoCompleteItem} key={index} aria-selected={autoCompleteSelected === index} role='option' onClick={() => {
-                    if (autoCompleteVisible) {
-                      setAutoCompleteVisible(false);
-                    }
                     setInput(val.name);
                     setAutoCompleteSelected(-1);
                     setAutocomplete(null);

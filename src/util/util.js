@@ -3,8 +3,15 @@
  * @param {object} gifs An array of gifs.
  * @returns an array of arrays with four gifs in each subarray.
  */
-export const mapGifsToRows = (gifs) => {
+ export const mapGifsToRows = (gifs, breakpoint) => {
   let div = 4;
+  
+  if (breakpoint === 'xs' || breakpoint === 'sm') {
+    div = 2;
+  }
+  if (breakpoint ==='lg') {
+    div = 6;
+  }
   let gifRows = [];
   let row = [];
   gifs.forEach((gif, index) => {

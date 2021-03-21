@@ -14,7 +14,7 @@ export default function GifRow(props) {
     <Row className='pb-3'>{
       row.map((gif, index) => {
         return (
-          <Col xs={3} key={index}>
+          <Col xs={6} md={3} lg={2} key={index}>
             <GifItem gif={gif} />
           </Col>
         )

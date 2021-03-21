@@ -1,7 +1,5 @@
 import { Row, Col, Spinner } from 'react-bootstrap';
 import GifRow from './GifRow';
-import { motion, useViewportScroll, useTransform } from 'framer-motion';
-import { ReactComponent as DownArrow } from '../down-arrow.svg';
 
 /**
  * A grid for strictly displaying GIFs. Uses GridRow.
@@ -21,8 +19,8 @@ export default function GifGrid(props) {
     const totalCount = props.totalCount;
 
     // Animation for end of viewport
-    const { scrollYProgress } = useViewportScroll();
-    const scale = useTransform(scrollYProgress, [0.85, 1], [1, 2]);
+    // const { scrollYProgress } = useViewportScroll();
+    // const scale = useTransform(scrollYProgress, [0.85, 1], [1, 4]);
 
     if (gifs.length) {
         return (
@@ -36,11 +34,9 @@ export default function GifGrid(props) {
 
                 {/* We check offset & total count in case there are no more records */}
                 {offset < totalCount &&
-                    <Row style={{ marginTop: '20em', paddingBottom: '10em' }}>
+                    <Row style={{ marginTop: '10em', paddingBottom: '10em' }}>
                         <Col className='text-center'>
-                            <motion.div style={{ scale, postion: 'absolute', left: '40%' }}>
-                                <h5>Looking for more? Keep scrolling!</h5>
-                                <DownArrow fill='white' width='10%' /></motion.div>
+                            <h1>...</h1>
                         </Col>
                     </Row>
                 }

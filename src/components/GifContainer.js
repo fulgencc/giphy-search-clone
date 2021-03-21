@@ -4,6 +4,7 @@ import { mapGifsToRows } from '../util/util';
 import GifSearch from './GifSearch';
 import GifGrid from './GifGrid';
 import { debounce } from 'lodash';
+import useBreakpoint from '../util/useBreakpoint';
 
 /**
  * Container for GIFs. This is the top level component which contains the state of
@@ -24,10 +25,12 @@ export default function GifContainer() {
   const [loading, setLoading] = useState(true);
 
   // Offset for additional requests afterwards if user scrolls down
-  const [offset, setOffset] = useState(40);
+  const [offset, setOffset] = useState(48);
 
   // True if user is at the bottom of the screen
   const [isBottom, setIsBottom] = useState(false);
+
+  const breakpoint = useBreakpoint();
 
   const debounceIsBottom = useCallback(debounce(setIsBottom, 1000), []); // eslint-disable-line react-hooks/exhaustive-deps
   /**
@@ -40,7 +43,7 @@ export default function GifContainer() {
       debounceIsBottom(bottom);
     }
   };
-
+  console.log(breakpoint);
   /**
    * On Mount useEffect.
    */
@@ -49,8 +52,8 @@ export default function GifContainer() {
     const getGifData = async () => {
       try {
         setLoading(true);
-        const res = await getGifs(40, 0);
-        const gifRows = mapGifsToRows(res.data.data);
+        const res = await getGifs(48, 0);
+        const gifRows = mapGifsToRows(res.data.data, breakpoint);
         setGifResponse(res.data);
         setGifs(gifRows);
         setLoading(false);
@@ -77,13 +80,13 @@ export default function GifContainer() {
       const getMoreGifData = async () => {
         // Await GIFs (if input is blank, search from trending, otherwise use query)
         try {
-        const res = await getGifs(16, offset, input ? 'search' : 'trending', input ? input : undefined);
-        const gifRows = mapGifsToRows(res.data.data);
+        const res = await getGifs(12, offset, input ? 'search' : 'trending', input ? input : undefined);
+        const gifRows = mapGifsToRows(res.data.data, breakpoint);
         setGifs((gifs) => {
           return ([...gifs, ...gifRows]);
         });
 
-        setOffset((offset) => (offset + 16));
+        setOffset((offset) => (offset + 12));
         }
         catch (e) {
           console.log(e.message);
@@ -92,16 +95,16 @@ export default function GifContainer() {
       setIsBottom(false);
       getMoreGifData();
     }
-  }, [gifResponse, isBottom, offset, input]);
+  }, [gifResponse, isBottom, offset, input, breakpoint]);
 
   // If the gifResponse gets modified (ex. typically when the user tries to search for something new), we will
   // need to map the new values to the state.
   useEffect(() => {
     if (gifResponse) {
-      const gifRows = mapGifsToRows([...gifResponse.data]);
+      const gifRows = mapGifsToRows([...gifResponse.data], breakpoint);
       setGifs([...gifRows]);
     }
-  }, [gifResponse]);
+  }, [gifResponse, breakpoint]);
 
   return (
     <div>

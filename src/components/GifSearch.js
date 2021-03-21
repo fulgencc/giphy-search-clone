@@ -85,11 +85,11 @@ export default function GifSearch(props) {
    */
   const getSearchGifData = async () => {
     if (input === '') {
-      const searchGifData = await getGifs(40, 0);
+      const searchGifData = await getGifs(48, 0);
       setGifResponse(searchGifData.data);
     }
     else {
-      const searchGifData = await getGifs(40, 0, 'search', input);
+      const searchGifData = await getGifs(48, 0, 'search', input);
       setGifResponse(searchGifData.data);
     }
     // Reset offset if searching for something new.

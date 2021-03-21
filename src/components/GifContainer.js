@@ -79,7 +79,9 @@ export default function GifContainer() {
         // Await GIFs (if input is blank, search from trending, otherwise use query)
         const res = await getGifs(16, offset, input ? 'search' : 'trending', input ? input : undefined);
         const gifRows = mapGifsToRows(res.data.data);
-        setGifs((gifs) => ([...gifs, ...gifRows]));
+        setGifs((gifs) => {
+          return ([...gifs, ...gifRows]);
+        });
 
         setOffset((offset) => (offset + 16));
       }

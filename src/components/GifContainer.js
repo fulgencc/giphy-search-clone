@@ -43,7 +43,7 @@ export default function GifContainer() {
       debounceIsBottom(bottom);
     }
   };
-  console.log(breakpoint);
+  
   /**
    * On Mount useEffect.
    */

@@ -6,8 +6,8 @@ import GifGrid from './GifGrid';
 import { debounce } from 'lodash';
 
 /**
- * Container for gifs. It handles all of the http requests, and sends them down to
- * the children components
+ * Container for GIFs. This is the top level component which contains the state of
+ * the GIF data and sends it down to its children.
  */
 export default function GifContainer() {
 

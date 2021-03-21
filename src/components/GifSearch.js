@@ -161,7 +161,7 @@ export default function GifSearch(props) {
     setContainerInput(input);
   }
 
-  // Callback for handleSubmit debounce. Dependency arry include input (so that the
+  // Callback for handleSubmit debounce. Dependency arry includes input (so that the
   // search query doesn't become stale)
   const debounceHandleSubmit = useCallback(debounce(handleSubmitRest, 500), [input]); // eslint-disable-line react-hooks/exhaustive-deps
 

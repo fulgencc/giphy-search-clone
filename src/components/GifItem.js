@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, Spinner } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 
@@ -9,9 +9,15 @@ import { motion } from 'framer-motion';
  * @param {object} props.gif A GIF.
  */
 export default function GifItem(props) {
+
     const gif = props.gif;
     const [isLoaded, setIsLoaded] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
+    
+    // set loaded to false if the GIF changes.
+    useEffect(() => {
+        setIsLoaded(false);
+    }, [gif])
 
     // Placeholder for GifItem when image is still loading.
     const Placeholder = () => {

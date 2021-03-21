@@ -5,7 +5,7 @@ import axios from 'axios';
  */
 const instance = axios.create({
     baseURL: 'https://api.giphy.com/v1/',
-    timeout: 5000,
+    timeout: 30000,
     params: {
         api_key: process.env.REACT_APP_GIPHY_API_KEY
     }
@@ -21,10 +21,10 @@ const instance = axios.create({
  */
 export function getGifs(limit = 4, offset, endpoint = 'trending', q) {
     if (endpoint === 'trending') {
-        return instance.get(`gifs/trending`, { params: { offset, limit, ...instance.params } });
+        return instance.get(`gifs/trending`, { params: { offset, limit, ...instance.params }});
     }
     else if (endpoint === ('search')) {
-        return instance.get(`gifs/search`, { params: { q, offset, limit, ...instance.params } })
+        return instance.get(`gifs/search`, { params: { q, offset, limit, ...instance.params }})
     }
 }
 

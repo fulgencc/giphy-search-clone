@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/giphy-search-clone/static/css/main.b05c57b4.chunk.css",
+    "main.js": "/giphy-search-clone/static/js/main.3fe3f64e.chunk.js",
+    "main.js.map": "/giphy-search-clone/static/js/main.3fe3f64e.chunk.js.map",
+    "runtime-main.js": "/giphy-search-clone/static/js/runtime-main.9e89f8ed.js",
+    "runtime-main.js.map": "/giphy-search-clone/static/js/runtime-main.9e89f8ed.js.map",
+    "static/css/2.d986b589.chunk.css": "/giphy-search-clone/static/css/2.d986b589.chunk.css",
+    "static/js/2.21f09e3c.chunk.js": "/giphy-search-clone/static/js/2.21f09e3c.chunk.js",
+    "static/js/2.21f09e3c.chunk.js.map": "/giphy-search-clone/static/js/2.21f09e3c.chunk.js.map",
+    "index.html": "/giphy-search-clone/index.html",
+    "static/css/2.d986b589.chunk.css.map": "/giphy-search-clone/static/css/2.d986b589.chunk.css.map",
+    "static/css/main.b05c57b4.chunk.css.map": "/giphy-search-clone/static/css/main.b05c57b4.chunk.css.map",
+    "static/js/2.21f09e3c.chunk.js.LICENSE.txt": "/giphy-search-clone/static/js/2.21f09e3c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9e89f8ed.js",
+    "static/css/2.d986b589.chunk.css",
+    "static/js/2.21f09e3c.chunk.js",
+    "static/css/main.b05c57b4.chunk.css",
+    "static/js/main.3fe3f64e.chunk.js"
+  ]
+}

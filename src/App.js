@@ -12,7 +12,7 @@ function App() {
           initial={{ y: -200, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1.5, type: "spring", stiffness: 100 }}
-        >Ohana Coding Challenge 🎇</motion.h1>
+        >Giphy Search Clone 🎇</motion.h1>
         <h5
           className='text-secondary'>Click a GIF to show some more info!</h5>
       </div>
